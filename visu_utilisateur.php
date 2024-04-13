@@ -25,7 +25,7 @@ if ($id_utilisateur) {
                 echo '<img src="images/' . $contenu['chemin_image'] . '" class="content-image" />';
                 echo '<div class="content-links">';
                 echo '<a href="#">Aimer</a>';
-                echo '<a href="partage.php">Partager</a>';
+                echo '<a href="partage.php?contenu_id=' . $contenu['id'] . '"><button type="button">Partager</button></a>';
                 echo '</div>'; // Fermeture de content-links
                 echo '</div>'; // Fermeture de post-box
             }

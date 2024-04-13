@@ -1,14 +1,14 @@
-/* CSS pour les contenus de l'utilisateur */
+
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Affichage de 4 contenus par ligne */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 20px;
     margin-top: 20px;
 }
 
 .post-box {
-    background: #fff;
-    border: 2px solid #dfdfdf;
+    background: white;
+    border: 2px solid white;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
@@ -27,7 +27,7 @@
 .content-links a {
     display: inline-block;
     margin-right: 10px;
-    color: #333;
+    color: grey;
     text-decoration: none;
     font-weight: bold;
 }

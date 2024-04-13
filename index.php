@@ -7,7 +7,7 @@ require_once 'db.php';
 if (isset($_GET['action']) && $_GET['action'] === 'like' && isset($_GET['contenu_id'])) {
     $contenu_id = $_GET['contenu_id'];
 
-    // Insérer le like dans la base de données
+    // Insérer le like dans la base de données.
     insertLike($contenu_id);
 
     // Redirection vers la page précédente
@@ -104,37 +104,37 @@ echo pageHeader("Bonjour");
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $contenus = getContenus($page);
 
+    
     foreach ($contenus as $contenu) {
         echo '<div class="post-box">';
-        // Nom d'utilisateur 
         echo '<p><a href="visu_utilisateur.php?id=' . $contenu['id_utilisateur'] . '">@' . $contenu['pseudo_utilisateur'] . '</a></p>';
         echo '<div class="flex flex-col justify-center items-center space-y-2">';
-        echo '<img src="images/' . $contenu['chemin_image'] . '" class="h-40" />';
-        echo '<p> Description : ' . $contenu['description'] . '</p>';
+        echo '<a href="visu_contenus.php?contenu_id=' . $contenu['id'] . '"><img src="images/' . $contenu['chemin_image'] . '" class="h-40" /></a>';
+        echo '<p>Description : ' . $contenu['description'] . '</p>';
 
-        //  nombre de likes
-        echo '<p> Likes : ' . getLikesCount($contenu['id']) . '</p>';
+        // Afficher le nombre de likes
+        echo '<p>Likes : ' . getLikesCount($contenu['id']) . '</p>';
 
-        //  like
-        echo '<a href="index.php?action=like&contenu_id=' . $contenu['id'] . '">';
-        echo '<button type="button">like </button>';
-        echo '<a href="partager.php"><button type="button">Partager </button></a>' ;
+        // Bouton Like
+        echo '<a href="index.php?action=like&contenu_id=' . $contenu['id'] . '"><button type="button">Like</button></a>';
 
-        // pour le commentaire
+        // Bouton Partager
+        echo '<a href="partage.php?contenu_id=' . $contenu['id'] . '"><button type="button">Partager</button></a>';
+        
+        // Formulaire de commentaire
         echo '<form action="index.php" method="post">';
         echo '<input type="hidden" name="contenu_id" value="' . $contenu['id'] . '">';
         echo '<input type="text" name="commentaire" placeholder="Ajouter un commentaire">';
         echo '<button type="submit" name="submit">Envoyer</button>';
         echo '</form>';
-        echo '</div>'; // Fermeture de la post-box
-        echo '</div>'; // Fermeture de chaque post-box
+        echo '</div>'; // Fermeture de flex-col
+        echo '</div>'; // Fermeture de post-box
     }
     ?>
-</div>
-
+    </div>
 
 <?php
-// Affichage des liens de pagination
+// pagination
 $total_contenus = getTotalContenus();
 $items_per_page = 6;
 $total_pages = ceil($total_contenus / $items_per_page);

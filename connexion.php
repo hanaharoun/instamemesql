@@ -2,22 +2,24 @@
 // Inclusion du fichier de connexion à la base de données
 require_once 'db.php';
 
-// Initialisation de la variable d'erreur
-$error = "";
+
 
 // Vérification si le formulaire est soumis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérification si les champs pseudo et mot de passe sont définis
+
+    // Verification
     if (isset($_POST["pseudo"]) && isset($_POST["mot_de_passe"])) {
-        // Récupération des valeurs des champs du formulaire
+
+        // Recupere
         $pseudo = $_POST["pseudo"];
         $mot_de_passe = $_POST["mot_de_passe"];
 
-        // Validation des entrées (vous pouvez ajouter plus de validation au besoin)
+        // pour remplir tt les champs 
+         
         if (empty($pseudo) || empty($mot_de_passe)) {
             $error = "Veuillez remplir tous les champs.";
         } else {
-            // Vérification des informations de connexion dans la base de données
+            // verific des inf dans la bdd
             $pdo = db();
             $query = "SELECT * FROM utilisateurs WHERE pseudo = ?";
             $stmt = $pdo->prepare($query);
@@ -25,14 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                // Vérification du mot de passe
+                
+                //  mot de passe
                 if (md5($mot_de_passe) == $user['mot_de_passe']) {
-                    // Mot de passe correct, connecter l'utilisateur (par exemple, définir une session)
+                    
                     session_start();
                     $_SESSION['user_id'] = $user['id_utilisateur'];
                     $_SESSION['pseudo'] = $user['pseudo'];
                     
-                    // Rediriger vers une page sécurisée ou afficher un message de succès
                     header("Location: welcome.php");
                     exit();
                 } else {
@@ -44,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -65,16 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <input type="submit" value="Se connecter" class="btn" />
             </form>
-            <?php 
-            // Affichage du message d'erreur s'il y en a un
-            if ($error) {
-                echo "<p>$error</p>";
-            }
-            ?>
+            
+
+           
         </div>
         <div class="sub-content">
             <div class="s-part">
-                Pas encore de compte ? <a href="inscription.php">Inscrivez-vous</a>
+                Pas de compte ? <a href="inscription.php">Inscrivez-vous</a>
             </div>
         </div>
     </div>
