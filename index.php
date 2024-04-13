@@ -1,21 +1,11 @@
 <?php
-// Inclusion des fichiers nécessaires
+// mportt des fich
 require_once 'affichage.php';
 require_once 'db.php';
 
-// Traitement du bouton like
-if (isset($_GET['action']) && $_GET['action'] === 'like' && isset($_GET['contenu_id'])) {
-    $contenu_id = $_GET['contenu_id'];
 
-    // Insérer le like dans la base de données.
-    insertLike($contenu_id);
 
-    // Redirection vers la page précédente
-    header("Location: index.php");
-    exit();
-}
-
-// Gestion de la recherche
+// condition pour recher
 if (isset($_GET['pseudo'])) {
     $pseudo = $_GET['pseudo'];
 
@@ -27,7 +17,7 @@ if (isset($_GET['pseudo'])) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result && isset($result['id'])) {
-        // Redirection vers visu_utilisateur.php avec l'ID de l'utilisateur
+        
         header("Location: visu_utilisateur.php?id=" . $result['id']);
         exit();
     } else {
@@ -36,6 +26,7 @@ if (isset($_GET['pseudo'])) {
 }
 
 //Fonction pour le pseudo  
+
 function pseudoExiste($pseudo) {
     $pdo = db();
     $stmt = $pdo->prepare("SELECT COUNT(*) AS count FROM utilisateurs WHERE pseudo = :pseudo");
@@ -47,13 +38,6 @@ function pseudoExiste($pseudo) {
 }
 
 
-// Fonction pour insérer un like dans la base de données
-function insertLike($contenu_id) {
-    $pdo = db();
-    $stmt = $pdo->prepare("INSERT INTO likes (id_contenu) VALUES (:contenu_id)");
-    $stmt->bindParam(':contenu_id', $contenu_id, PDO::PARAM_INT);
-    $stmt->execute();
-}
 
 // Fonction pour récupérer les contenus depuis la base de données avec les pseudonymes des utilisateurs
 function getContenus($page = 1, $items_per_page = 6) {
@@ -100,7 +84,7 @@ echo pageHeader("Bonjour");
 
 <div class="grid">
     <?php
-    // Récupérer les contenus depuis la base de données avec les pseudonymes des utilisateurs
+    // les contenus avec les pseudo des utilisateurs
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $contenus = getContenus($page);
 
@@ -109,7 +93,7 @@ echo pageHeader("Bonjour");
         echo '<div class="post-box">';
         echo '<p><a href="visu_utilisateur.php?id=' . $contenu['id_utilisateur'] . '">@' . $contenu['pseudo_utilisateur'] . '</a></p>';
         echo '<div class="flex flex-col justify-center items-center space-y-2">';
-        echo '<a href="visu_contenus.php?contenu_id=' . $contenu['id'] . '"><img src="images/' . $contenu['chemin_image'] . '" class="h-40" /></a>';
+        echo '<a href="' . $contenu['id'] . '"><img src="images/' . $contenu['chemin_image'] . '" class="h-40" /></a>';
         echo '<p>Description : ' . $contenu['description'] . '</p>';
 
         // Afficher le nombre de likes
@@ -124,11 +108,11 @@ echo pageHeader("Bonjour");
         // Formulaire de commentaire
         echo '<form action="index.php" method="post">';
         echo '<input type="hidden" name="contenu_id" value="' . $contenu['id'] . '">';
-        echo '<input type="text" name="commentaire" placeholder="Ajouter un commentaire">';
+        echo '<input type="text" name="commentaire" placeholder="commenter">';
         echo '<button type="submit" name="submit">Envoyer</button>';
         echo '</form>';
-        echo '</div>'; // Fermeture de flex-col
-        echo '</div>'; // Fermeture de post-box
+        echo '</div>'; 
+        echo '</div>'; 
     }
     ?>
     </div>

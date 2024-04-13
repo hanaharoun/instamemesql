@@ -23,20 +23,20 @@
             margin-bottom: 20px; 
         }
 
-        /* Style pour le logo */
+        /*  logo */
         .logo {
-            width: 40px; /* Modification de la taille du logo */
-            margin-right: 10px; /* Réduction de la marge */
+            width: 40px;
+            margin-right: 10px; 
         }
 
-        /* Style pour les liens */
+        
         .header-links {
             color: #fff;
             text-decoration: none;
             margin: 0 10px;
         }
 
-        /* Style pour le champ de recherche */
+        /* champ dr recherche */
         .search-container {
             flex: 1;
             display: flex;
@@ -44,7 +44,7 @@
             margin: 0 20px;
         }
 
-        /* Style pour le champ de recherche */
+        
         .search-input {
             padding: 8px;
             border-radius: 5px;
@@ -53,7 +53,7 @@
             margin-right: 10px;
         }
 
-        /* Style pour le bouton recherche */
+        /*   bouton recherche */
         .search-button {
             padding: 8px 15px;
             background-color: black;
@@ -63,7 +63,7 @@
             cursor: pointer;
         }
 
-        /* Style pour les boutons de navigation */
+        
         .nav-button {
             padding: 8px 15px;
             background-color: black;
@@ -79,14 +79,8 @@
 
 <body>
 <?php
-// Gestion de la recherche
 if(isset($_GET['pseudo'])) {
-    $pseudo = $_GET['pseudo'];
-
-    // Votre logique de vérification du pseudo et redirection ici
-    // Vous pouvez utiliser des requêtes SQL pour vérifier si le pseudo existe dans votre base de données
-
-    // Exemple de redirection
+    
     if(pseudoExiste($pseudo)) {
         header("Location: profil_utilisateur.php?pseudo=".$pseudo);
         exit();
@@ -96,21 +90,18 @@ if(isset($_GET['pseudo'])) {
     }
 }
 
-// Fonction pour vérifier si le pseudo existe (vous devez l'implémenter)
-// function pseudoExiste($pseudo) {
-//     // Votre logique de vérification du pseudo dans la base de données
-//     // Retournez vrai si le pseudo existe, sinon retournez faux
-// }
+
+
 ?>
 <header>
     <a href="index.php" class="logo"><img src="images\logo.jpeg" alt="Logo"></a>
     <a href="index.php" class="header-links nav-button">Accueil</a>
-    <form action="index.php" method="GET"> <!-- Formulaire de recherche -->
+    <form action="index.php" method="GET"> 
         <div class="search-container">
             <input type="text" name="pseudo" placeholder="Recherche" class="search-input">
             <button type="submit" class="search-button">Recherche</button>
         </div>
     </form>
-    <a href="#" class="header-links nav-button">Profil</a>
+    <a href="index.php" class="header-links nav-button">Profil</a>
     <a href="inscription.php" class="header-links nav-button">S'inscrire</a>
 </header>

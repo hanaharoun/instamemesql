@@ -1,13 +1,13 @@
 <?php
-// Inclusion du fichier de connexion à la base de données
+// omport des fich
 require_once 'db.php';
 
 
 
-// Vérification si le formulaire est soumis
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Verification
+    // Verificati
     if (isset($_POST["pseudo"]) && isset($_POST["mot_de_passe"])) {
 
         // Recupere

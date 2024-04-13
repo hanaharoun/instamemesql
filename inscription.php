@@ -1,24 +1,24 @@
 <?php
-// Inclusion du fichier de connexion à la base de données
+// import des fich
 require_once 'db.php';
 
 
-// Initialisation de la variable d'erreur
+// init de la variable d'erreur
 $error = "";
 
-// Vérification si le formulaire est soumis
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérification si les champs pseudo et mot de passe sont définis
+    
     if (isset($_POST["pseudo"]) && isset($_POST["mot_de_passe"])) {
-        // Récupération des valeurs des champs du formulaire
+        
         $pseudo = $_POST["pseudo"];
         $mot_de_passe = $_POST["mot_de_passe"];
 
-        // Validation des entrées (vous pouvez ajouter plus de validation au besoin)
+        
         if (empty($pseudo) || empty($mot_de_passe)) {
             $error = "Veuillez remplir tous les champs.";
         } else {
-            // Vérification si le pseudo existe déjà dans la base de données
+            // Vérification si le pseudo existe déjà 
             $pdo = db();
             $query = "SELECT * FROM utilisateurs WHERE pseudo = ?";
             $stmt = $pdo->prepare($query);
@@ -28,16 +28,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($result) {
                 $error = "Ce pseudo est déjà pris. Veuillez choisir un autre.";
             } else {
-                // Hachage du mot de passe avec MD5
+                
                 $hashed_password = md5($mot_de_passe);
 
-                // Insérer le nouvel utilisateur dans la base de données
+               
                 $query = "INSERT INTO utilisateurs (pseudo, mot_de_passe) VALUES (?, ?)";
                 $stmt = $pdo->prepare($query);
                 $stmt->execute([$pseudo, $hashed_password]);
 
                 if ($stmt) {
-                    // Inscription réussie, rediriger l'utilisateur vers une autre page ou afficher un message de succès
+                   
                     header("Location: connexion.php");
                     exit();
                 } else {
@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="submit" value="S'inscrire" class="btn" />
             </form>
             <?php 
-            // Affichage du message d'erreur s'il y en a un
+            
             if ($error) {
                 echo "<p>$error</p>";
             }

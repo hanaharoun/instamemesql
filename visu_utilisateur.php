@@ -2,11 +2,11 @@
 require_once 'db.php';
 require_once 'composants/header.php';
 
-// Récupérer l'ID de l'utilisateur à afficher depuis les paramètres de l'URL
+// Récupérer l'ID de l'utilisateur 
 $id_utilisateur = isset($_GET['id']) ? intval($_GET['id']) : null;
 
 if ($id_utilisateur) {
-    // Fonction pour récupérer les contenus de l'utilisateur depuis la base de données
+    // Fonction pour récupérer les contenus de l'utilisateur 
     function getContenusUtilisateur($id_utilisateur) {
         $pdo = db();
         $stmt = $pdo->prepare("SELECT * FROM contenus WHERE id_utilisateur = :id_utilisateur");
@@ -16,6 +16,7 @@ if ($id_utilisateur) {
     }
 
     // Fonction pour afficher les contenus de l'utilisateur
+
     function afficherContenusUtilisateur($id_utilisateur) {
         $contenus = getContenusUtilisateur($id_utilisateur);
         if ($contenus) {
@@ -26,10 +27,10 @@ if ($id_utilisateur) {
                 echo '<div class="content-links">';
                 echo '<a href="#">Aimer</a>';
                 echo '<a href="partage.php?contenu_id=' . $contenu['id'] . '"><button type="button">Partager</button></a>';
-                echo '</div>'; // Fermeture de content-links
-                echo '</div>'; // Fermeture de post-box
+                echo '</div>'; 
+                echo '</div>'; 
             }
-            echo '</div>'; // Fermeture de la grille
+            echo '</div>'; 
         } else {
             echo 'Aucun contenu trouvé pour cet utilisateur.';
         }
@@ -49,7 +50,7 @@ if ($id_utilisateur) {
 
     <body>
         <?php
-        // Affichage des contenus de l'utilisateur
+        
         afficherContenusUtilisateur($id_utilisateur);
         ?>
     </body>
